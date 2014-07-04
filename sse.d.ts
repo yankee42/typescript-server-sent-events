@@ -9,7 +9,7 @@ declare module sse {
     enum ReadyState {CONNECTING = 0, OPEN = 1, CLOSED = 2}
     
     interface IEventSourceStatic extends EventTarget {
-        new (url: string, eventSourceInitDict?: IEventSourceInit);
+        new (url: string, eventSourceInitDict?: IEventSourceInit): IEventSourceStatic;
         url: string;
         withCredentials: boolean;
         CONNECTING: ReadyState; // constant, always 0
