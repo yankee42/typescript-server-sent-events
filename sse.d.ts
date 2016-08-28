@@ -5,27 +5,39 @@
 declare var EventSource : sse.IEventSourceStatic;
 
 declare module sse {
-    
-    enum ReadyState {CONNECTING = 0, OPEN = 1, CLOSED = 2}
-    
+
+    /** The readyState attribute represents the state of the connection. */
+    enum ReadyState {
+
+        /** The connection has not yet been established, or it was closed and the user agent is reconnecting. */
+        CONNECTING = 0,
+
+        /** The user agent has an open connection and is dispatching events as it receives them. */
+        OPEN = 1,
+
+        /** The connection is not open, and the user agent is not trying to reconnect. Either there was a fatal error or the close() method was invoked. */
+        CLOSED = 2
+    }
+
     interface IEventSourceStatic extends EventTarget {
         new (url: string, eventSourceInitDict?: IEventSourceInit): IEventSourceStatic;
+        /** The serialisation of this EventSource object's url. */
         url: string;
         withCredentials: boolean;
-        CONNECTING: ReadyState; // constant, always 0
-        OPEN: ReadyState; // constant, always 1
-        CLOSED: ReadyState; // constant, always 2
+        /** The ready state of the underlying connection. */
         readyState: ReadyState;
-        onopen: Function;
+        onopen: (event: Event) => any;
         onmessage: (event: IOnMessageEvent) => void;
-        onerror: Function;
+        onerror: (event: Event) => any;
+        /** The close() method must abort any instances of the fetch algorithm started for this EventSource object, and must set the readyState attribute to CLOSED. */
         close: () => void;
     }
-    
+
     interface IEventSourceInit {
+        /** Defines if request should set corsAttributeState to true.  */
         withCredentials?: boolean;
     }
-    
+
     interface IOnMessageEvent {
         data: string;
     }
