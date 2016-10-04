@@ -24,6 +24,12 @@ declare module sse {
         /** The serialisation of this EventSource object's url. */
         url: string;
         withCredentials: boolean;
+        /** Always 0 */
+        CONNECTING: ReadyState;
+        /** Always 1 */
+        OPEN: ReadyState;
+        /** Always 2 */
+        CLOSED: ReadyState;
         /** The ready state of the underlying connection. */
         readyState: ReadyState;
         onopen: (event: Event) => any;
