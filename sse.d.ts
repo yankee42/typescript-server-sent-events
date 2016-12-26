@@ -19,7 +19,7 @@ declare module sse {
         CLOSED = 2
     }
 
-    interface IEventSourceStatic extends EventTarget {
+    interface IEventSourceStatic {
         new (url: string, eventSourceInitDict?: IEventSourceInit): IEventSourceStatic;
         /** The serialisation of this EventSource object's url. */
         url: string;
@@ -37,6 +37,8 @@ declare module sse {
         onerror: (event: Event) => any;
         /** The close() method must abort any instances of the fetch algorithm started for this EventSource object, and must set the readyState attribute to CLOSED. */
         close: () => void;
+        addEventListener: (type: string, h: (event: IOnMessageEvent) => void) => void;
+        removeEventListener: (type: string, h: (event: IOnMessageEvent) => void) => void;
     }
 
     interface IEventSourceInit {
